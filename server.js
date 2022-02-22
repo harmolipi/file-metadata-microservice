@@ -1,7 +1,9 @@
 var express = require('express');
 var cors = require('cors');
 require('dotenv').config();
+const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -11,6 +13,8 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
+
+app.use('/api', apiRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
